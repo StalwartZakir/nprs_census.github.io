@@ -1,0 +1,200 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nigeria Population Registration</title>
+    <link rel="stylesheet" href="styles.css">
+    
+</head>
+<body>
+    <header>
+       <main id="home" class="page active">
+        <div class="overlay">
+            <h1>Welcome to Nigeria Population Registration</h1>
+            <p>Making Population Management Easier</p>
+            <div id="total-population">
+                Total Population: <span id="population-count">215,000,000</span>
+            </div>
+         </div>
+      </main>
+    </header>
+
+    <nav>
+        <ul>
+          <li><button onclick="showPage('home')">Home</button></li>
+          <li><button onclick="showPage('new-born')">New Born Registration</button></li>
+          <li><button onclick="showPage('adult')">Adult Registration</button>             </li>
+          <li><button onclick="showPage('sign-in')">Sign In</button></li>
+    </nav>
+
+        <section>
+            <h2>Efficient and Reliable Census Registration</h2>
+            <p>Register newborn babies and unregistered adults. Sign in to update your information. Reduce the stress of census with our efficient system.
+        </p>
+        </section>
+  
+        <main id="new-born" class="page">
+        <section>
+            <h2>Sign Up for New Born Baby</h2>
+            <form id="new-born-form">
+                <label for="baby-name">Baby's Name:</label>
+                <input type="text" id="baby-name" name="babyName" required>
+
+                <label for="baby-dob">Date of Birth:</label>
+                <input type="date" id="baby-dob" name="babyDob" required>
+
+                <label for="parent-name">Parent's Name:</label>
+                <input type="text" id="parent-name" name="parentName" required>
+
+                <label for="address">Address:</label>
+                <input type="text" id="address" name="address" required>
+
+                <button type="submit">Sign Up</button>
+            </form>
+        </section>
+    </main>
+ <main id="adult" class="page">
+        <section>
+            <h2>Sign Up for Adults</h2>
+            <form id="adult-registration-form">
+                <label for="adult-name">Name:</label>
+                <input type="text" id="adult-name" name="adultName" required>
+
+                <label for="adult-dob">Date of Birth:</label>
+                <input type="date" id="adult-dob" name="adultDob" required>
+
+                <label for="address">Address:</label>
+                <input type="text" id="address" name="address" required>
+
+                <button type="submit">Sign Up</button>
+            </form>
+        </section>
+    </main>
+<main id="sign-in" class="page">
+        <section>
+            <h2>Sign In</h2>
+            <form id="sign-in-form">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+
+                <label for="password">Password:</label>
+              <input type="password" id="password" name="password" required> </button>
+
+                <button type="submit">Sign In</button>
+            </form>
+        </section>
+    </main>
+    <div class="chat-icon" id="chat-icon">
+        <img src="speech-bubble.png" alt="Chat Icon">
+    </div>
+
+    <div class="chat-box" id="chat-box">
+        <div class="chat-header">
+            <h3>Customer Assistant</h3>
+            <span class="close-chat" id="close-chat">&times;</span>
+        </div>
+        <div class="chat-body">
+            <p>Hello! How can I assist you today?</p>
+        </div>
+        <div class="chat-footer">
+            <div class="input-container">
+                <input type="text" placeholder="Type your message..." id="user-input">
+                <button id="send-button">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>©2024 Nigeria Population Registration System (NPRS).
+      </p>
+    </footer>
+
+    <script>
+    
+        function showPage(pageId) {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+        
+        document.getElementById(pageId).classList.add('active');
+        }
+        document.addEventListener('DOMContentLoaded', () => {
+            const chatIcon = document.getElementById('chat-icon');
+            const chatBox = document.getElementById('chat-box');
+            const closeChat = document.getElementById('close-chat');
+            const sendButton = document.getElementById('send-button');
+            const userInput = document.getElementById('user-input');
+            const chatBody = document.querySelector('.chat-body');
+        
+            
+            chatIcon.addEventListener('click', () => {
+                chatBox.style.display = (chatBox.style.display === 'none' || chatBox.style.display === '') ? 'block' : 'none';
+            });
+        
+            
+            closeChat.addEventListener('click', () => {
+                chatBox.style.display = 'none';
+            });
+        
+            
+            function sendMessage() {
+                const messageText = userInput.value.trim();
+                if (messageText) {
+                   
+                    const userMessage = document.createElement('p');
+                    userMessage.textContent = messageText;
+                    userMessage.classList.add('user-message');
+                    chatBody.appendChild(userMessage);
+                    userInput.value = '';
+                    chatBody.scrollTop = chatBody.scrollHeight;
+        
+                    
+                    setTimeout(() => {
+                        generateBotResponse(messageText);
+                    }, 1000); 
+                }
+            }
+        
+           
+            function generateBotResponse(userMessage) {
+                let botMessage = "I'm here to help!"; // Default bot response
+        
+                
+                if (userMessage.toLowerCase().includes("hello")) {
+                    botMessage = "Hello! How can I assist you today?";
+                } else if (userMessage.toLowerCase().includes("help")) {
+                    botMessage = "Sure, let me know what you need help with!";
+                } else if (userMessage.toLowerCase().includes("thanks") || userMessage.toLowerCase().includes("thank you")) {
+                    botMessage = "You're welcome! Feel free to ask anything else.";
+                }
+        
+                
+                const botResponse = document.createElement('p');
+                botResponse.textContent = botMessage;
+                botResponse.classList.add('bot-message');
+                chatBody.appendChild(botResponse);
+                chatBody.scrollTop = chatBody.scrollHeight; 
+            }
+        
+           
+            sendButton.addEventListener('click', sendMessage);
+        
+           
+            userInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+        }); 
+        
+        function updatePopulationCount() {
+          const populationElement = document.getElementById('population-count');
+          let currentPopulation = parseInt(populationElement.textContent.replace(/,/g, ''));
+          currentPopulation += Math.floor(Math.random() * 200); // Increment by a random number
+          populationElement.textContent = currentPopulation.toLocaleString();
+        }
+
+
+        setInterval(updatePopulationCount, 1000);
+    </script>
+</body>
+</html>
